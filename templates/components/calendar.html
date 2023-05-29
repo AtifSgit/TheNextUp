@@ -1,0 +1,302 @@
+
+<h5 class="mx-3"><span class="nextup-title mr-3" style="margin-right: 8px;">Calendar</span><small style="font-size:70%">({{today}})</small></h5>
+<!-- {{icon|safe}} -->
+<style type="text/css">
+
+  .btn-sqr{
+    height: 90px;
+    width: 90px;
+    margin: 5px;
+  }
+  .call-dates {
+    overflow-x: scroll;
+    white-space: nowrap;
+    /* margin: 5px; */
+    {% comment %} padding: 10px 0; {% endcomment %}
+  }
+
+  .call-dates::-webkit-scrollbar {
+  display: none;
+}
+
+
+.call-dates {
+  scrollbar-width: none;
+}
+
+
+.call-dates {
+  -ms-overflow-style: none;
+}
+
+
+
+.call-date {
+        position: relative;
+    display: inline-block;
+    /* padding: 10px; */
+    margin: 5px;
+    background-color: #ddd;
+    /* border-radius: 5px; */
+    height:90px;
+    width:90px;
+  }
+.call-date .todo-icon{
+  /* margin: auto; */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  padding-top: 23px;
+}
+
+  /* .call-date::before {
+    content: url("static/images/icons/plus.svg");
+    color: white;
+    position: absolute;
+    padding: 5px;
+    top: 0;
+    left: 0;
+  } */
+
+  .call-date::before {
+  content: attr(data-text);
+  position: absolute;
+  padding: 5px;
+  bottom: 0;
+  left: 0;
+}
+
+  .call-date .day {
+    display: flex;
+    flex-direction: column;
+    justify-content: end !important;
+    vertical-align: bottom !important;
+    align-items:start;
+    margin-top: 65%;
+    position: absolute;
+    visibility: hidden;
+  }
+
+
+  .call-date.current {
+    position: relative;
+  }
+
+  .call-date.current::after {
+    content: url("static/images/icons/Subtract.svg");
+  /* transform: rotate(-45deg); */
+  position: absolute;
+  /* padding: 0px; */
+  /* margin: -10px -2px -10px -10px; */
+  margin-bottom: -8px;
+  bottom: 0;
+  right: 0;
+  }
+
+
+</style>
+
+
+<div class="row">
+  <!-- {{dates}} -->
+  <div class="col-2">
+    <button class="btn btn-light btn-sqr" onclick="scrollBack()"><i class="bi bi-chevron-double-left"></i></button>
+  </div>
+  <div class="col-8">
+    <div class="call-dates" style="width: 600px; overflow-x: scroll;">
+        {% for ctask in calTasks %}
+
+        
+        <div class="call-date {% if ctask.taskDate == today %}current{% endif %}" data-text="{{ctask.taskDate|date:'M j'}}">
+          <input type="hidden" id="getDate" name="{{day}}" value="{{day}}"/>
+          <span class="todo-icon text-center">
+            {% comment %} <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#addSession" data-bs-date="{% with idx=forloop.counter0|add:1 %}{{ dates|slice:idx|last }}{% endwith %}"> {% endcomment %}
+            {% comment %} <i class="bi bi-plus-circle" style="font-size: 150%;"></i> {% endcomment %}
+            <img src="{{ctask.taskIcon.taskIcon.url}}" height="40" alt="{{ctask.pk}}" width="40"/>
+          {% comment %} </a> {% endcomment %}
+        </span>
+          
+        </div>
+
+        
+          {% endfor %}
+
+          <div class="call-date">
+
+            <span class="todo-icon text-center"><a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#addSession" >
+              {% comment %} <i class="bi bi-plus-circle" style="font-size: 150%;"></i> {% endcomment %}
+              <img src="static/images/icons/plus.svg" height="40" width="40"/>
+            </a></span>
+            
+          </div>
+          
+    </div>
+  </div>
+  <div class="col-2">
+  <button class="btn btn-light btn-sqr" onclick="scrollNext()"><i class="bi bi-chevron-double-right"></i></button>
+  
+</div>
+</div>
+
+
+<form method="POST">
+  {% csrf_token %}
+  <div class="modal fade" id="addSession" tabindex="-1" aria-labelledby="addSessionLabel" aria-hidden="true">
+    <div class="modal-dialog bg-dark" style="border-radius: 20px;">
+      <div class="modal-content bg-dark" style="border-radius: 20px;">
+        <div class="modal-title bg-dark px-4 py-4 text-white" style="border-radius: 20px;">
+          <table width="100%">
+            <td width="70%">
+              <h4 class="nextup-title">Add new event</h4>
+            </td>
+            <td style="margin-top: 10px !important;vertical-align: bottom;" valign="bottom" width="30%">
+              <i class="bi bi-plus-circle" style="font-size: 390%;"></i>
+            </td>
+          </table>
+        </div>
+        <div class="modal-body bg-dark text-white px-4" style="padding-bottom: 50px !important;border-radius: 20px;">
+          <form action="/addtask" method="GET">
+            <div class="input-group">
+              <select name="taskfor" data-bs-theme="dark" style="cursor: pointer;" class="form-select form-select-lg bg-dark text-white" aria-label="Default select example" required>
+                <option value=''>Training for...</option>
+                {% for task in tasks %}
+                <option value="{{task.taskName}}">{{task.taskName}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          <div class="input-group mt-2">
+            <select name="taskdate" data-bs-theme="dark" style="cursor: pointer;" class="form-select form-select-lg bg-dark text-white" aria-label="Default select example">
+              
+              {% for day in days %}
+              <option value="{{day}}" {% if forloop.counter == 0 %} selected{% endif %}>{{day}}</option>
+              {% endfor %}
+            </select>
+            <select name="taskmonth" data-bs-theme="dark" style="cursor: pointer;" class="form-select form-select-lg bg-dark text-white" aria-label="Default select example">
+              {% comment %} <option selected disabled>Month</option> {% endcomment %}
+              {% for m in months %}
+              <option value="{{m}}" {% if forloop.counter == 0 %} selected{% endif %}>{{m}}</option>
+              {% endfor %}
+            </select>
+            <select name="taskyear" data-bs-theme="dark" style="cursor: pointer;" class="form-select form-select-lg bg-dark text-white" aria-label="Default select example">
+              
+              {% for year in years %}
+              <option value="{{year}}"{% if forloop.counter == 0 %} selected{% endif %}>{{year}}</option>
+              {% endfor %}
+            </select>
+              {% comment %} <input type="text" name="taskDate" style="cursor:not-allowed;" id="" class="date-input form-control bg-dark" readonly data-bs-theme="dark"/> {% endcomment %}
+              <button type="submit" class="btn btn-light">Add</button>
+            </div>
+          </form>
+            
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</form>  
+
+<script>
+
+const addSession = document.getElementById('addSession')
+addSession.addEventListener('show.bs.modal', event => {
+  // Button that triggered the modal
+  const button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  const dateVar = button.getAttribute('data-bs-date')
+  // If necessary, you could initiate an AJAX request here
+  // and then do the updating in a callback.
+  //
+  // Update the modal's content.
+  const inTitle = addSession.querySelector('.which-date')
+  const inBody = addSession.querySelector('.modal-body .date-input')
+
+  inTitle.textContent = `${dateVar}`
+  inBody.value = dateVar
+})
+</script>
+
+  <style>
+    .nextup-src {
+        background: #EAEBEF !important;
+        margin-right: 8px;
+    }
+
+    .nextup-srcbtn:hover {
+        background: #0D6EFD !important;
+        -webkit-transition: background 0.2s ease-in-out;
+        -moz-transition: background 0.2s ease-in-out;
+        -o-transition: background 0.2s ease-in-out;
+        transition: background 0.2s linear;
+    }
+  </style>
+
+
+
+<script>
+
+function scrollNext() {
+  const callDates = document.querySelector(".call-dates");
+  const scrollAmount = callDates.scrollWidth / 5; // Scroll 1/5th of the width
+  const targetScrollPosition = callDates.scrollLeft + scrollAmount; // Calculate the target scroll position
+  
+  callDates.scrollTo({
+    left: targetScrollPosition,
+    behavior: 'smooth' // Use smooth animation
+  });
+}
+
+function scrollBack() {
+  const callDates = document.querySelector(".call-dates");
+  const scrollAmount = callDates.scrollWidth * 15; // Scroll 1/5th of the width
+  const targetScrollPosition = callDates.scrollRight + scrollAmount; // Calculate the target scroll position
+  
+  callDates.scrollTo({
+    left: targetScrollPosition,
+    behavior: 'smooth' // Use smooth animation
+  });
+}
+
+  function scrollToCurrentDay() {
+    const callDates = document.querySelector(".call-dates");
+    const currentDay = document.querySelector(".call-date.current");
+    const currentDayPosition = currentDay.offsetLeft + (currentDay.offsetWidth / 1) - (callDates.offsetWidth / 1);
+    
+    callDates.scrollTo({
+      left: currentDayPosition,
+      behavior: 'smooth'
+    });
+  }
+  
+  window.onload = scrollToCurrentDay;
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <div class="nextup-calbox shadow-sm">
+  <ul>
+    {% for i in '1234567890123456789012345678901'  %}
+    <li>{{forloop.counter}}</li>
+    {% endfor %}
+  </ul>
+</div> {% endcomment %}

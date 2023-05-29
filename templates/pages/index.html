@@ -1,0 +1,187 @@
+
+{% extends 'base/header.html' %}
+
+{% block body %}
+
+
+    <div class="container py-3 nextup-container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body p-0">
+
+                    <!--header-->
+                    <div class="nextup-header text-center">
+                        <div class="float-start d-inline nextup-title">
+                            <img src="/static/images/club-logo.png" style="margin-right: 8px !important;" alt="club-logo" width="45"/> {{ request.user }}
+                        </div>
+                        <img src="/static/images/logo.png" alt="logo" style="margin-right: 35px !important;" width="130">
+                    </div>
+
+                    <div class="mobile-only">
+                            {% include 'components/mobile-header.html' %}
+                    </div>
+
+
+                    <style>
+                        /* show the element on screens with a maximum width of 768 pixels */
+@media only screen and (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+}
+
+/* hide the element on screens with a minimum width of 769 pixels */
+@media only screen and (min-width: 769px) {
+  .mobile-only {
+    display: none;
+  }
+}
+
+                    </style>
+                    <!--end of header-->
+
+                    <!--left Nav-->
+                    <div class="row">
+                        <div class="col-1" style="display: inline !important;">
+                            {% include 'base/left-nav.html' %}
+                        </div>
+                        <!--endof left Nav-->
+
+                        <!--main contents-->
+                        <div class="col mt-5 mx-5" style="display: inline !important;">
+                            
+                            <!--Calender-->
+
+                            {% include 'components/calendar.html' %}
+
+                            <!--end of calendar-->
+
+                            <div class="row mt-4">
+                                
+                                
+                                
+                                
+                                <div class="col-lg-8 mb-5">
+                                    <h5 class="nextup-title mx-3" style="margin-bottom:15px">Previous Match</h5>
+                                    {% include 'components/matchResult.html' %}
+                                </div>
+                                
+
+
+                                <div class="col-lg-4 mb-5">
+                                    <h5 class="nextup-title mx-3">Suggested Videos</h5>
+                                    <div class="card">
+                                       
+                                        <div class="">
+                                            {% for video in videos %}
+                                                <div class="search-query-list">
+                                                    <table width="100%">
+                                                        <td width="1%" class="thumb">
+                                                            <img src="{{ video.thumbnail }}" width="90"/>
+                                                        </td>
+                                                        <td width="25%">
+                                                            <a href="{{ video.url }}">{{ video.title|slice:":40" }}...</a><br>
+                                                            {% comment %} {{ }} {% endcomment %}
+                                                        </td>
+                                                    </table>
+                                                    
+                                                </div> 
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h5 class="nextup-title mx-3" style="margin-bottom:15px">Today Session</h5>
+
+                                <div class="card bg-light text-center p-5" style="border-radius:25px;">
+                                
+                                    {% include 'components/todaysession.html' %}
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="row g-0">
+                        <div class="col-lg-6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+<style>
+
+
+    .nextup-addbtn-light:hover {
+        background: #efefef !important;
+        border: 1px solid #198754 !important;
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s linear;
+        color: #222 !important;
+    }
+
+
+    .search-query-list{
+        background-color: #fff;
+        color: #252525;
+        padding:10px;
+        border-radius: 10px;
+        margin: 8px 0px;
+    }
+
+    .nextup-calbox {
+        /* border: 1px solid #222; */
+        border-radius: 10px;
+        background-color: #fff;
+        padding: 4px 4px 4px 4px;
+        
+    }
+    
+    .nextup-content {
+        border-radius: 10px;
+        background-color: #fff;
+        padding: 25px;
+
+    }
+
+    .nextup-calbox ul li {
+        list-style: none;
+        display: inline-block;
+        margin: 10px 5px 0px 5px;
+        padding: 25px 20px 20px 20px;
+        height: 80px;
+        width: 80px;
+        align-items:center;
+        text-align: center;
+        background-color: #EFEFEF;
+        color: #222222;
+    }
+
+    .nextup-container .nextup-header {
+        background-color: #fff;
+        padding: 15px;
+        border-bottom: 3px solid #222222;
+        color: #222222;
+        font-family: 'Alegreya Sans', sans-serif;
+        
+    }
+    .nextup-container .card {
+        border: none !important;
+        background-color: #efefef;
+    }
+
+</style>
+
+{% endblock body %}
+
+
+

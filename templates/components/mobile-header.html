@@ -1,0 +1,39 @@
+<div class="bg-dark px-5 py-3 my-2 text-center mbl-nav">
+    <a href="/" class="text-white text-center mr-5 {% if request.path == '/' %}active{% endif %} " aria-current="true">
+        <i class="bi bi-house-door-fill" style="margin-right: 14px !important;margin-left: 14px !important;"></i>
+    </a>
+    <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#Search-Menu" class="text-white text-center mr-5 {% if '/search' in request.path %}active{% endif %}">
+        <i class="bi bi-search" style="margin-right: 14px !important;margin-left: 14px !important;"></i>
+    </a>
+    {% if request.user.is_staff %}
+    <a href="/settings" class="text-white text-center mr-5 {% if '/settings' in request.path %}active{% endif %} ">
+        <i class="bi bi-gear-fill" style="margin-right: 14px !important;margin-left: 14px !important;"></i>
+    </a>
+    {% endif %}
+    <a href="/user/setting" class="text-white text-center mr-5 {% if '/user/setting' in request.path %}active{% endif %}">
+        <i class="bi bi-person-fill" style="margin-right: 14px !important;margin-left: 14px !important;"></i>
+    </a>
+    <a href="/logout" class="text-white text-center mr-5">
+        <i class="bi bi-box-arrow-right" style="margin-right: 14px !important;margin-left: 14px !important;"></i>
+    </a>
+</div>
+
+<style>
+
+    .mbl-nav{
+
+    }
+    .mbl-nav a {
+        text-decoration: none !important;
+        padding-bottom: 5px !important;
+    }
+    .mbl-nav a:hover {
+        color: #0D6EFD !important;
+        transition: all .2s linear;
+    }
+
+    .mbl-nav .active {
+        border-bottom: 1px solid #0D6EFD;
+    }
+
+</style>

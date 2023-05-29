@@ -1,0 +1,207 @@
+{% extends 'base/header.html' %}
+
+{% block body %}
+<section class="gradient-custom-2">
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12">
+            <div class="card card-registration card-registration-2  shadow" style="border-radius: 15px;">
+                <div class="card-body p-0">
+                    <div class="row g-0">
+                        <div class="col-lg-6">
+                        <form method="POST" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <input type="hidden" name="formFor" value="signingIn">
+                        <img src="/static/images/logo.png" class="mx-4 my-4" width="150" alt="Logo">
+                        <div class="p-5">
+                            <h4 class="fw-normal mb-3 text-center nextup-title" style="color: #222222; font-size: 150%;">Login to your Account</h4>
+                            <h6 class="fw-normal mb-3 text-center" style="color: #222222; font-size: 105%">Login using Social accounts</h6>
+                            <div class="text-center socialAuth mb-4">
+                                <a href="" class=""><i class="bi bi-facebook px-2 social-icons"></i></a>
+                                <a href="" class=""><i class="bi bi-google px-2 social-icons"></i></a>
+                                <a href="" class=""><i class="bi bi-twitter px-2 social-icons"></i></a>
+                                <h6 class="fw-normal mt-3 mb-2 text-center" style="color: #222222; font-size: 90%">Or use your Account</h6>
+                        </div>
+                        {% if messages %}
+                        
+                        {% for message in messages %}
+                        {%if "signin" in message.tags %}
+                        <div{% if message.tags %} class="alert {{ message.tags }}"{% endif %}>{{ message }}</div>
+                        {% endif %}
+                        {% endfor %}
+                        
+                        {% endif %}
+                        <div class="form-outline text-center mb-3">
+                            
+                            <input type="text" id="username" name="username" class="form-control form-control-md nextup-input" placeholder="Email" required/>
+                        </div>
+                        
+                        <div class="form-outline text-center mb-3">
+                            
+                            <input type="password" id="password" name="password" class="form-control form-control-md nextup-input" placeholder="Password" required/>
+                        </div>
+    
+                        <div class="text-center">
+                            <h6 class="fw-normal mb-3 mt-3 text-center" style="color: #222222; font-size: 100%">Forgot your password?</h6>
+                            <button type="submit" class="btn btn-dark" style="width: 40%;">Sign In</button>
+                        </div>
+                        
+                    </form>
+                        
+                    </div>
+                </div>
+                    <div class="col-lg-6 bg-base">
+                        <form method="POST" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <input type="hidden" name="formFor" value="signingUp">
+                    <div class="p-5 text-center">
+                        <h5 class="fw-normal mb-3 mt-5 text-white text-center nextup-title" style="font-size: 160%;">Are you new here?</h5>
+                        <h6 class="fw-normal mb-5 text-white text-center">Sign up now!</h6>
+
+                        {% if messages %}
+                        
+                        {% for message in messages %}
+                        {%if "signup" in message.tags %}
+                        <div{% if message.tags %} class="alert {{ message.tags }}"{% endif %} data-bs-theme="dark">{{ message }}</div>
+                        {% endif %}
+                        {% endfor %}
+                        
+                        {% endif %}
+    
+                        <div class="form-outline text-center mb-3">
+                            
+                            <input type="email" id="email" name="email" class="form-control form-control-md nextup-input-dark" placeholder="Email" required/>
+                        </div>
+                        
+                        <div class="form-outline text-center mb-3">
+                            
+                            <input type="text" id="username" name="username" class="form-control form-control-md nextup-input-dark" placeholder="Username" required/>
+                        </div>
+                        
+                        <div class="form-outline text-center mb-3">
+                            
+                            <input type="password" id="password1" name="password1" class="form-control form-control-md nextup-input-dark" placeholder="Password" required/>
+                        </div>
+    
+                        <div class="form-outline text-center mb-3">
+                            
+                            <input type="password" id="password2" name="password2" class="form-control form-control-md nextup-input-dark" placeholder="Retype Password" required/>
+                        </div>
+    
+                        <button type="submit" class="btn mt-5 btn-light text-center" style="width: 40%;">Register</button>
+    
+                    </div>
+                </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+      </div>
+    </div>
+  </section>
+
+
+  <style>
+
+    
+
+    section .card {
+        border-radius: 0px !important;
+    }
+
+    .socialAuth a {
+        color:#222 !important;
+        text-decoration:none !important;
+    }
+
+    .socialAuth a:hover {
+        color:#0D6EFD !important;
+        transition: all .2s linear;
+    }
+
+    .social-icons {
+        font-size: 130%;
+    }
+    .nextup-input {
+        background-color: #EFEFEF;
+        border-radius: 20px;
+        border: none !important;
+        padding: 10px 10px 10px 20px !important;
+    }
+
+    .nextup-input-dark {
+        background-color: #1f1f1f;
+        border-radius: 20px;
+        border: none !important;
+        padding: 10px 10px 10px 20px !important;
+        color: #EFEFEF !important;
+    }
+
+    .nextup-input-dark:focus {
+        background-color: #222;
+    }
+
+    .nextup-input-dark::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #EFEFEF !important;
+}
+    .nextup-input-dark::-moz-placeholder { /* Firefox 19+ */
+  color: #EFEFEF !important;
+}
+    .nextup-input-dark:-ms-input-placeholder { /* IE 10+ */
+  color: #EFEFEF !important;
+}
+    .nextup-input-dark:-moz-placeholder { /* Firefox 18- */
+  color: #EFEFEF !important;
+}
+
+    section /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+section input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+section input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+    .card {
+        width:100%!important;
+        border: none !important;
+    }
+    @media (min-width: 1025px) {
+        .h-custom {
+        /* height: 100vh !important; */
+        }
+        }
+        .card-registration .select-input.form-control[readonly]:not([disabled]) {
+        font-size: 1rem;
+        line-height: 2.15;
+        padding-left: .75em;
+        padding-right: .75em;
+        }
+        .card-registration .select-arrow {
+        top: 13px;
+        }
+        
+        
+        
+        .bg-base {
+        background-color: #222222;
+        }
+        @media (min-width: 992px) {
+        .card-registration-2 .bg-base {
+       
+        }
+        }
+        @media (max-width: 991px) {
+        .card-registration-2 .bg-base {
+        
+        }
+        }
+  </style>
+
+  {% endblock body %}

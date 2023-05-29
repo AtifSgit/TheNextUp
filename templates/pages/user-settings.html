@@ -1,0 +1,267 @@
+
+
+
+{% extends 'base/header.html' %}
+{% block title %}User Settings - {% endblock title %}
+{% block body %}
+
+
+    <div class="container py-3 nextup-container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body p-0">
+
+                    <!--header-->
+                    <div class="nextup-header text-center">
+                        <div class="float-start d-inline nextup-title">
+                            <img src="/static/images/club-logo.png" style="margin-right: 8px !important;" alt="club-logo" width="45"/> {{ request.user }}
+                        </div>
+                        <img src="/static/images/logo.png" alt="logo" style="margin-right: 35px !important;" width="130">
+                    </div>
+                    <!--end of header-->
+
+                    <!--left Nav-->
+                    <div class="row">
+                        <div class="col-1" style="display: inline !important;">
+                            {% include 'base/left-nav.html' %}
+                        </div>
+                        <!--endof left Nav-->
+                        <div class="mobile-only">
+                            {% include 'components/mobile-header.html' %}
+                    </div>
+
+                    <style>
+                        /* show the element on screens with a maximum width of 768 pixels */
+@media only screen and (max-width: 768px) {
+  .mobile-only {
+    display: block;
+  }
+}
+
+/* hide the element on screens with a minimum width of 769 pixels */
+@media only screen and (min-width: 769px) {
+  .mobile-only {
+    display: none;
+  }
+}
+
+                    </style>
+
+                        <!--main contents-->
+                        <div class="col mt-5 mx-5" style="display: inline !important;">
+                            
+                            <div class="card bg-light p-5" style="border-radius:25px;">
+                                <h5 class="nextup-title mx-3" style="margin-bottom:15px">Update Personal Information</h5>
+
+                                {% if messages %}
+                        
+                        {% for message in messages %}
+                        <div{% if message.tags %} class="alert {{ message.tags }}"{% endif %}>{{ message }}</div>
+                        {% endfor %}
+                        
+                        {% endif %}
+
+                                <form class="text-center" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {% comment %} <input type="hidden" name="formFor" value="addPlayer"/> {% endcomment %}
+                                    <div class="row m-2">
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control nextup-input col-6" name="username" value="{{user.username}}"  autocomplete="off" required>
+                                        </div>
+                                        
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control nextup-input col-6" name="Managing Club" placeholder="Real Madrid" disabled>
+                                        </div>
+
+                                        <div class="col-lg-6 mb-2">
+                                            <input type="text" class="form-control nextup-input col-6" name="email" value="{{user.email}}" required>
+                                        </div>
+
+                                        {% comment %} <div class="col-lg-6 mb-2">
+                                            <input type="password" class="form-control nextup-input col-6" name="password" autocomplete="new-password" placeholder="password" required>
+                                        </div> {% endcomment %}
+                                    </div>
+                                    <button type="submit" class="btn btn-dark mb-3 rounded-pill nextup-addbtn">Update</button>
+                                </form>
+                                
+                            </div>
+                    </div>
+
+
+                    <div class="row g-0">
+                        <div class="col-lg-6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+<style>
+
+    .nextup-input {
+        background-color: #EFEFEF;
+        border-radius: 20px;
+        border: none !important;
+        padding: 10px 10px 10px 20px !important;
+    }
+    
+    .nextup-input-color-green {
+        background-color: #8fd38e;
+        color:#222;
+        border-radius: 20px;
+        border: none !important;
+        padding: 10px 10px 10px 20px !important;
+    }
+
+    .nextup-inputImg {
+        background-color: #EFEFEF;
+        border-radius: 20px;
+        border: none !important;
+        {% comment %} padding: 10px 10px 10px 0px !important; {% endcomment %}
+    }
+    .nextup-inputImg:hover {
+        {% comment %} background-color: #EFEFEF; {% endcomment %}
+        {% comment %} border-radius: 20px; {% endcomment %}
+        {% comment %} border: none !important; {% endcomment %}
+        {% comment %} padding: 10px 10px 10px 0px !important; {% endcomment %}
+        color: #222 !important;
+
+    }
+    input[type=file]::file-selector-button {
+        margin-right: 20px;
+        border: none;
+        background: #084cdf;
+        padding: 10px 20px;
+        border-top-left-radius: 25px;
+        {% comment %} border-top-right-radius: 25px; {% endcomment %}
+        border-bottom-left-radius: 25px;
+        {% comment %} border-bottom-right-radius: 0px; {% endcomment %}
+        color: #fff;
+        cursor: pointer;
+        transition: background .2s ease-in-out;
+      }
+      
+      input[type=file]::file-selector-button:hover {
+        {% comment %} background: #0d45a5 ! important; {% endcomment %}
+        color: #222 !important;
+    }
+
+    .nextup-calbox {
+        /* border: 1px solid #222; */
+        border-radius: 10px;
+        background-color: #fff;
+        padding: 4px 4px 4px 4px;
+        
+    }
+    
+    .nextup-content {
+        border-radius: 10px;
+        background-color: #fff;
+        padding: 25px;
+
+    }
+
+    .nextup-calbox ul li {
+        list-style: none;
+        display: inline-block;
+        margin: 10px 5px 0px 5px;
+        padding: 25px 20px 20px 20px;
+        height: 80px;
+        width: 80px;
+        align-items:center;
+        text-align: center;
+        background-color: #EFEFEF;
+        color: #222222;
+    }
+
+    .nextup-container .nextup-header {
+        background-color: #fff;
+        padding: 15px;
+        border-bottom: 3px solid #222222;
+        color: #222222;
+        font-family: 'Alegreya Sans', sans-serif;
+        
+    }
+    .nextup-container .card {
+        border: none !important;
+        background-color: #efefef;
+    }
+
+</style>
+
+
+<style>
+
+    .addresult {
+        background:#222222;
+    }
+    .nextup-input-dark {
+        background-color: #1f1f1f;
+        border-radius: 20px;
+        border: none !important;
+        padding: 10px 10px 10px 20px !important;
+        color: #EFEFEF !important;
+    }
+
+    .nextup-input-dark:focus {
+        background-color: #222;
+    }
+
+    .nextup-input-dark::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: #EFEFEF !important;
+      }
+          .nextup-input-dark::-moz-placeholder { /* Firefox 19+ */
+        color: #EFEFEF !important;
+      }
+          .nextup-input-dark:-ms-input-placeholder { /* IE 10+ */
+        color: #EFEFEF !important;
+      }
+          .nextup-input-dark:-moz-placeholder { /* Firefox 18- */
+        color: #EFEFEF !important;
+      }
+
+
+    .nextup-addbtn:hover {
+        background: #efefef !important;
+        border: 1px solid #222 !important;
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s linear;
+        color: #222 !important;
+    }
+
+
+    .nextup-addbtn-light:hover {
+        background: #efefef !important;
+        border: 1px solid #198754 !important;
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s linear;
+        color: #222 !important;
+    }
+</style>
+
+<script>
+
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var img = document.getElementById("preview");
+            img.src = reader.result;
+            img.style.display = "block"; // show the image when it is not empty
+        };
+        if (event.target.files.length === 0) {
+            document.getElementById("preview").style.display = "none"; // hide the image when no file is selected
+        } else {
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+
+</script>
+
+{% endblock body %}

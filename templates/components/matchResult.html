@@ -1,0 +1,150 @@
+{% for stat in stats %}
+<div class="card bg-light text-center p-5" style="border-radius:25px;">
+    <div class="row">
+     
+        <div class="col-5">
+            <div class="team-name">
+                Real Madrid
+            </div>
+        </div>
+
+        <div class="col-2">
+            <b>VS</b>
+        </div>
+    
+        <div class="col-5">
+            <div class="team-name">
+                {{ stat.opponent }}
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="row m-2">
+        <div class="col-5 text-end">
+            <div class="progress proverse mt-2" role="progressbar" aria-label="" style="">
+                <div class="progress-bar proverse {% if sontrm < soffopp %} bg-danger {% else %} bg-success{% endif %} text-center" style="width: {{sontrm}}%">{{ stat.shootsOnTarget_rm }}</div>
+            </div>
+        </div>
+        <div class="col-2 text-center text-small">
+            Shots On Target
+        </div>
+        <div class="col-5 text-end">
+            <div class="progress mt-2" role="progressbar" aria-label="" style="">
+                <div class="progress-bar text-center" style="width: {{sontopp}}%">{{ stat.shootsOnTarget_opp }}</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row m-2">
+        <div class="col-5 text-end">
+            <div class="progress proverse mt-2" role="progressbar" aria-label="" style="">
+                <div class="progress-bar proverse {% if soffrm > soffopp %} bg-danger {% else %} bg-success{% endif %} text-center" style="width: {{soffrm}}%">{{ stat.shootsOffTarget_rm }}</div>
+            </div>
+        </div>
+        <div class="col-2 text-center text-small">
+            Shots off Target
+        </div>
+        <div class="col-5 text-end">
+            <div class="progress mt-2" role="progressbar" aria-label="" style="">
+                <div class="progress-bar text-center" style="width: {{soffopp}}%">{{ stat.shootsOffTarget_opp }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-2">
+        <div class="col-5 text-end">
+            <div class="progress proverse " role="progressbar" aria-label="" style="">
+                <div class="progress-bar proverse {% if stat.possession_rm < stat.possession_opp %} bg-danger {% else %} bg-success{% endif %} text-center" style="width: {{ stat.possession_rm }}%">{{ stat.possession_rm }}%</div>
+            </div>
+        </div>
+        <div class="col-2 text-center text-small">
+            Possession
+        </div>
+        <div class="col-5 text-end">
+            <div class="progress" role="progressbar" aria-label="" style="">
+                <div class="progress-bar text-center" style="width: {{ stat.possession_opp }}%">{{ stat.possession_opp }}%</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row m-2">
+        <div class="col-5 text-end">
+            <div class="progress proverse" role="progressbar" aria-label="" style="">
+                <div class="progress-bar {% if offrm > offopp %} bg-danger {% else %} bg-success{% endif %} proverse text-center" style="width: {{offrm}}%">{{ stat.offsides_rm }}</div>
+            </div>
+        </div>
+        <div class="col-2 text-center text-small">
+            Offsides
+        </div>
+        <div class="col-5 text-end">
+            <div class="progress" role="progressbar" aria-label="" style="">
+                <div class="progress-bar text-center" style="width:  {{offopp}}%">{{ stat.offsides_opp }}</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row m-2">
+        <div class="col-5 text-end">
+            <div class="progress proverse" role="progressbar" aria-label="" style="">
+                <div class="progress-bar {% if frm > fopp %} bg-danger {% else %} bg-success{% endif %} proverse text-center" style="width: {{frm}}%">{{ stat.fouls_rm }}</div>
+            </div>
+        </div>
+        <div class="col-2 text-center text-small">
+            Fouls
+        </div>
+        <div class="col-5 text-end">
+            <div class="progress" role="progressbar" aria-label="" style="">
+                <div class="progress-bar text-center" style="width: {{ fopp }}%">{{ stat.fouls_opp }}</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row m-2">
+        <div class="col-5 text-end">
+            <div class="progress proverse mt-2" role="progressbar" aria-label="" style="">
+                <div class="progress-bar {% if catkrm < catkopp %} bg-danger {% else %} bg-success{% endif %} proverse text-center" style="width: {{catkrm}}%">{{ stat.counterAttack_rm }}</div>
+            </div>
+        </div>
+        <div class="col-2 text-center text-small">
+            Counter Attacks
+        </div>
+        <div class="col-5 text-end">
+            <div class="progress mt-2" role="progressbar" aria-label="" style="">
+                <div class="progress-bar text-center" style="width: {{catkopp}}%">{{ stat.counterAttack_opp }}</div>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+
+
+</div>
+{% endfor %}
+
+
+<style>
+    .text-small {
+        font-size: 70%;
+        font-weight: bold;
+    }
+    .proverse {
+  transform: rotate(180deg);
+}
+
+.progress {
+    font-size: 105%;
+}
+    .team-name {
+        background-color: #EFEFEF;
+        padding: 5px;
+        font-size: 110%;
+        font-weight: bold;
+    }
+</style>

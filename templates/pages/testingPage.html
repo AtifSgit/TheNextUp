@@ -1,0 +1,36 @@
+{% extends 'base/header.html' %}
+
+{% block body %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h1>Calendar for {{ calendar.month }} {{ calendar.year }}</h1>
+
+  {% for task in tasks %}
+  {{task.taskDate}} = {{task}} <img src="{{ task.taskIcon.taskIcon.url }}" width="30" alt="IMG"/> <br>
+{% endfor %}
+
+{% for day in calendar.day_set.all %}
+  <h2>Tasks for {{ day.date }}</h2>
+<div>
+    {% for task in tasks %}
+    {{task.taskDate}}
+      {% if task.taskDate == day.date %}
+        <li>{{ task.task }}</li>
+      {% endif %}
+    {% endfor %}
+</div>
+{% endfor %}
+
+{% endblock %}

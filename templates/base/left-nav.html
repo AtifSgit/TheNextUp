@@ -1,0 +1,113 @@
+{% include 'components/pop-search.html' %}
+
+<!--Main Navigation-->
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-dark side-nav-nextup">
+        <div class="px-2 py-5 text-center mt-4 nextup-nav-radius">
+            <a href="/" class="e-button {% if request.path == '/' %}active{% endif %} list-group-item bg-dark text-white list-group-item-action py-2 ripple" aria-current="true">
+                <span class="e-button-text"><i class="bi bi-house-door-fill" style="margin-right: 6px !important;"></i>Home</span>
+            </a>
+            <a style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#Search-Menu" class="e-button list-group-item {% if '/search' in request.path %}active{% endif %} bg-dark text-white list-group-item-action py-2 ripple">
+                <span class="e-button-text"><i class="bi bi-search" style="margin-right: 6px !important;"></i>Explore</span>
+            </a>
+            {% if request.user.is_staff %}
+            <a href="/settings" class="e-button {% if '/settings' in request.path %}active{% endif %} list-group-item bg-dark text-white list-group-item-action py-2 ripple">
+                <span class="e-button-text"><i class="bi bi-gear-fill" style="margin-right: 6px !important;"></i>Settings</span>
+            </a>
+            {% endif %}
+            <a href="/user/setting" class="e-button {% if '/user/setting' in request.path %}active{% endif %} list-group-item bg-dark text-white list-group-item-action mb-5 py-2 ripple">
+                <span class="e-button-text"><i class="bi bi-person-fill" style="margin-right: 6px !important;"></i>Profile</span>
+            </a>
+            <a href="/logout" class="e-button list-group-item bg-dark text-white list-group-item-action mt-5 py-2 ripple">
+                <span class="e-button-text"><i class="bi bi-box-arrow-right" style="margin-right: 6px !important;"></i>Logout</span>
+            </a>
+        </div>
+    </nav>
+    <!-- Sidebar -->
+  
+    
+
+
+<style>
+
+    nav {
+    }
+    
+    .side-nav-nextup {
+    border-top-right-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+    display: inline-block;
+    clear: both;
+}
+
+.side-nav-nextup .active {
+    overflow: visible !important;
+}
+
+.sidebar {
+    top: 120px;
+    left: 40;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+    width: 80px;
+}
+
+@media (max-width: 991.98px) {
+.sidebar {
+width: 100%;
+}
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    /* height: calc(100vh - 48px); */
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.sidebar .e-button{
+    
+    padding: 10px 10px 10px 10px !important;
+    overflow: hidden;
+    margin: 10px 0px 10px 0px;
+    max-width: 45px;
+    height: auto;
+    /* -webkit-transition: max-width 0.2s ease-in-out;
+    -moz-transition: max-width 0.2s ease-in-out;
+    -o-transition: max-width 0.2s ease-in-out;
+    transition: max-width 0.2s linear; */
+    -webkit-transition: overflow 0.2s ease-in-out;
+    -moz-transition: overflow 0.2s ease-in-out;
+    -o-transition: overflow 0.2s ease-in-out;
+    transition: overflow 0.2s linear;
+    background-color: #212529;
+    border-top-right-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+}
+.sidebar .e-button-text{
+
+    white-space:nowrap;
+    color:#fff;
+    background-color: #212529;
+    padding: 15px;
+    border-top-right-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+}
+
+.sidebar .e-button:hover{
+    border-top-right-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+    color: #fff;
+    max-width: 120px !important;
+    /* position: absolute;
+    z-index: 0; */
+    padding: 25px;
+    clear: both;
+    overflow: visible !important;
+    -webkit-transition: overflow 0.2s ease-in-out;
+    -moz-transition: overflow 0.2s ease-in-out;
+    -o-transition: overflow 0.2s ease-in-out;
+    transition: overflow 0.2s linear;
+}
+</style>
